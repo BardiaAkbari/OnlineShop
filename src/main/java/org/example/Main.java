@@ -1,9 +1,16 @@
 package org.example;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        User myuser = new User("sksk", "sksjsj");
+        Order myOrder = new Order(myuser);
+        System.out.println(myOrder.getTotalPrice());
+        myOrder.increasingTotoalPrice(200);
+        System.out.println(myOrder.getTotalPrice());
 
     }
 
@@ -116,9 +123,184 @@ public class Main {
         int price = myScanner.nextInt();
         newRequest.requestOfIncreasingPriceOfWalletForUser(user, price);
     }
-//    public static void makingOrder(){
-//
-//    }
+    public static void selectingCategory(User user, Order order){
+        Scanner categoryScanner = new Scanner(System.in);
+        System.out.println("Do you want to select category or just using search in all products?(yes(for using category)/no): ");
+        String ansewr = categoryScanner.nextLine();
+        if(ansewr.equals("yes") || ansewr.equals("Yes")){
+            System.out.println("Please enter your target category" + '\n');
+            System.out.println("1-Beauty" + '\n' + "2-Book" + '\n' + "3-Cloth" + '\n' + "4-Electronic" + '\n' +
+                    "5-KitchenStuff" + '\n' + "6-SuperMarketStuff" + '\n' + "7-Vehicle" + '\n' + "8-OtherProducts");
+        }
+        else if (ansewr.equals("no") || ansewr.equals("No")){
+            System.out.println("Ok you use search from all products.");
+            makingOrder(user,9, order);
+        }
+        else{
+            System.out.println("Please give right ansewr.");
+            selectingCategory(user, order);
+        }
+    }
+    public static void beautyCategory(User user, Order order){
+        Scanner beautyScanner = new Scanner(System.in);
+        System.out.println("A)Search in beauty." + '\n'
+                +"B)see all beauty products.(A/B)" + '\n' );
+        String ansewr = beautyScanner.nextLine();
+        if(ansewr.equals("A") || ansewr.equals("a")){
+            System.out.println("Please enter your beauty product name: ");
+            String productName = beautyScanner.nextLine();
+            if(Beauty.SearchForBeautyProduct(productName) == null){
+                System.out.println("Sorry we dont have product with this name :(");
+            }
+            else{
+                System.out.println("Name: " + Beauty.SearchForBeautyProduct(productName).getName() + "      " + " Quantity: "
+                        + Beauty.SearchForBeautyProduct(productName).getQuantity() + "     " + " Price: "
+                        + Beauty.SearchForBeautyProduct(productName).getPrice() + "     " + " Product comment: "
+                        + Beauty.SearchForBeautyProduct(productName).getCommentOfProduct());
+                System.out.println('\n' + "Do you want this product?(yes/no)");
+                String userDecide = beautyScanner.nextLine();
+                if(userDecide.equals("yes") || userDecide.equals("Yes")){
+                    Beauty newProduct = Beauty.SearchForBeautyProduct(productName);
+                    System.out.println("How much do you want from this product?");
+                    int range = beautyScanner.nextInt();
+
+                    if(range > 0 && range <= newProduct.getQuantity()){
+                        newProduct.setQuantity(range);
+                        order.addingToUserorder(newProduct);
+                        Beauty.decreasingAmountOfBeautyProduct(newProduct, range);
+                        Shop.decreasingAmountOfProduct(newProduct, range);
+                        order.increasingNumberOfProducts();
+                        order.increasingTotoalPrice(newProduct.getPrice());
+                    }
+                    else{
+                        System.out.println("You choose wrong amount, so we skip this part and you cant order this" +
+                                "(you can order this again with correct amount).");
+                    }
+                }
+                else {
+                    System.out.println("So we skip this part.");
+                }
+            }
+        }
+        else{
+            int round = 0;
+            while(round < Beauty.numberOfBeautyProducts()){
+                System.out.println(round + ") Name: " + Beauty.accessToBeautyProduct(round).getName() + "     " + " Quantity: "
+                        + Beauty.accessToBeautyProduct(round).getQuantity() + "     " + " Price: "
+                        + Beauty.accessToBeautyProduct(round).getPrice() + "        " + " Product comment: "
+                        + Beauty.accessToBeautyProduct(round).getCommentOfProduct() + '\n');
+            }
+        }
+        System.out.println("A)Be in beauty category" + '\n' +
+                "B)Back to user menu(This make your order uncomplete and you must make it from first)" + '\n' +
+                "C)Go to Search box or selecting other category" + '\n' + "D)Finish the making order" + '\n' +
+                "F)See my cart for update it");
+        String respond = beautyScanner.nextLine();
+        switch (respond) {
+            case "A":
+            case "a":
+                beautyCategory(user, order);
+                break;
+            case "B":
+            case "b":
+                userMenu(user);
+                break;
+            case "C":
+            case "c":
+                selectingCategory(user, order);
+                break;
+            case "D":
+            case "d":
+                finishingTheOrder(user, order);
+                break;
+            case "F":
+            case "f":
+                System.out.println("");
+                break;
+            default:
+                System.out.println("You type wrong ansewr." + '\n' + "Please enter keywords that we offers" + '\n' +
+                        "We must show this page from first :(");
+                beautyCategory(user, order);
+                break;
+        }
+    }
+    public static void bookCategory(User user, Order order){
+
+    }
+    public static void clothCategory(User user, Order order){}
+    public static void electronicCategory(User user, Order order){}
+    public static void kitchenStuffCategory(User user, Order order){}
+    public static void superMarketStuffCategory(User user, Order order){}
+    public static void vehicleCategory(User user, Order order){}
+    public static void otherProductCategory(User user, Order order){}
+    public static void makingOrder(User user, int number, Order order){
+        switch (number){
+            case 1:
+                beautyCategory(user, order);
+                break;
+            case 2:
+                bookCategory(user, order);
+                break;
+            case 3:
+                clothCategory(user, order);
+                break;
+            case 4:
+                electronicCategory(user, order);
+                break;
+            case 5:
+                kitchenStuffCategory(user, order);
+                break;
+            case 6:
+                superMarketStuffCategory(user, order);
+                break;
+            case 7:
+                vehicleCategory(user, order);
+                break;
+            case 8:
+                otherProductCategory(user, order);
+                break;
+        }
+    }
+    
+
+    
+    
+    
+    public static void finishingTheOrder(User user, Order order){
+        
+    }
+
+
+
+
+
+
+    public static void logout(){
+        Scanner logScanner = new Scanner(System.in);
+        System.out.println("Do you want to exit onlineshop too?(yes / no)");
+        String ansewr = logScanner.nextLine();
+        if(ansewr.equals("yes") || ansewr.equals("Yes")){
+            System.out.println("You make us happy to visit our onlineshop.");
+            System.exit(1);
+        }
+        else if (ansewr.equals("no") || ansewr.equals("No")){
+            System.out.println("You loged out");
+            runMenuForAll();
+        }
+        else{
+            System.out.println("Please ansewr in right way.");
+            logout();
+        }
+    }
+
+
+
+
+
+
+
+
+
     public static void userMenu(User user){
         System.out.println("Now you are in main Menu." + '\n' + "please select your operation :D" + '\n');
         System.out.println("1-Make Order" + '\n' + "2-Purchase Products" + '\n' + "3-My Last Orders" + '\n' + "4-Log out" + '\n' +
@@ -127,10 +309,10 @@ public class Main {
         int number = myScanner.nextInt();
         switch (number){
             case 1:
-
-
-
-
+                Order myOrder = new Order(user);
+                selectingCategory(user, myOrder);
+            case 4:
+                logout();
             case 5:
                 increasingWalletPriceRequestForUser(user);
 

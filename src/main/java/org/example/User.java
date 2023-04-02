@@ -11,6 +11,7 @@ public class User extends Account {
     private int walletCash;
     private static ArrayList<User> allUsers = new ArrayList<>();
     private ArrayList<Order> orders = new ArrayList<>();
+    private ArrayList<Product> allPurcahseProducts = new ArrayList<>();
 
     // Constructor
     public User(String username, String password){
