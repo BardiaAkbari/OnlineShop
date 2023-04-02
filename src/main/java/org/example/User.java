@@ -1,5 +1,7 @@
 package org.example;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -11,13 +13,14 @@ public class User extends Account {
     private int walletCash;
     private static ArrayList<User> allUsers = new ArrayList<>();
     private ArrayList<Order> orders = new ArrayList<>();
-    private ArrayList<Product> allPurcahseProducts = new ArrayList<>();
+    private ArrayList<Product> allPurchaseProducts = new ArrayList<>();
 
     // Constructor
     public User(String username, String password){
         super(username, password);
         allUsers.add(this);
     }
+
     // Public Functions
     public static User isUserExist(String username, String password) {
         User target = null;
@@ -64,7 +67,21 @@ public class User extends Account {
         while(!flag);
         return passWord;
     }
-
+    public void decreasingWalletCash(int price){
+        this.walletCash = this.walletCash - price;
+    }
+    public void addToOrders(Order order){
+        this.orders.add(order);
+    }
+    public void addToAllPurchaseProducts(Product product){
+        this.allPurchaseProducts.add(product);
+    }
+    public int numberOfAllOrders(){
+        return this.orders.size();
+    }
+    public int numberAllPurchaseProducts(){
+        return this.allPurchaseProducts.size();
+    }
 
 
 
@@ -108,6 +125,31 @@ public class User extends Account {
 
     public void setAddress (String address){
         this.address = address;
+    }
+
+    public int getWalletCash() {
+        return walletCash;
+    }
+
+    public void setWalletCash(int walletCash) {
+        this.walletCash = walletCash;
+    }
+    public Order getFromOrders(int index){
+        return this.orders.get(index);
+    }
+    public Product getFromAllPurchaseProducts(int index){
+        return this.allPurchaseProducts.get(index);
+    }
+    // To String
+    @Override
+    public String toString() {
+        return "User{" +
+                "phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", walletCash=" + walletCash +
+                ", orders=" + orders +
+                ", allPurchaseProducts=" + allPurchaseProducts +
+                '}';
     }
 }
 

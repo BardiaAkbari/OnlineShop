@@ -41,6 +41,7 @@ public class Order {
 
 
 
+
     // Getter & Setter
 
     public User getUser() {
@@ -73,5 +74,20 @@ public class Order {
 
     public void setUserOrder(ArrayList<Product> userOrder) {
         this.userOrder = userOrder;
+    }
+    public Product getFromUserOrder(int index){
+        return this.userOrder.get(index);
+    }
+
+    // To String
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "user=" + user +
+                ", numberOfProducts=" + numberOfProducts +
+                ", totalPrice=" + totalPrice +
+                ", userOrder=" + userOrder +
+                '}';
     }
 }
