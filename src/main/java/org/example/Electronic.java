@@ -1,5 +1,5 @@
 package org.example;
 
-public class Electronic extends Product {
+public class Electronic extends SellerProduct {
 
 }

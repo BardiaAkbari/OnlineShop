@@ -1,4 +1,4 @@
 package org.example;
 
-public class Book extends Product{
+public class Book extends SellerProduct {
 }

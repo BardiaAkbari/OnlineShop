@@ -6,7 +6,7 @@ public class Order {
     User user;
     private int numberOfProducts;
     private int totalPrice;
-    private ArrayList<Product> userOrder = new ArrayList<>();
+    private ArrayList<UserProduct> productUserOrder = new ArrayList<>();
 
 
     // Constructor
@@ -19,14 +19,17 @@ public class Order {
     public void increasingNumberOfProducts(int number){
         this.numberOfProducts = this.numberOfProducts + number;
     }
-    public void increasingTotoalPrice(int price){
+    public void increasingTotalPrice(int price){
         this.totalPrice = this.totalPrice + price;
     }
-    public void addingToUserorder(Product product){
-        this.userOrder.add(product);
+    public void addToProductUserOrders(UserProduct product){
+        this.productUserOrder.add(product);
     }
-    public int numberOfUserOrder(){
-        return this.userOrder.size();
+    public int numberOfProductUserOrder(){
+        return this.productUserOrder.size();
+    }
+    public void removingProductFromProductUserOrder(UserProduct userProduct){
+        this.productUserOrder.remove(userProduct);
     }
 
 
@@ -72,16 +75,13 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public void setUserOrder(ArrayList<Product> userOrder) {
-        this.userOrder = userOrder;
-    }
 
-    public Product getFromUserOrder(int index){
-        return this.userOrder.get(index);
+    public UserProduct getFromUserOrder(int index){
+        return this.productUserOrder.get(index);
     }
-    public Product getFromUserOrder(String name){
-        Product target = null;
-        for(Product product : userOrder){
+    public UserProduct getFromUserOrder(String name){
+        UserProduct target = null;
+        for(UserProduct product : productUserOrder){
             if(product.getName().equals(name)){
                 target = product;
                 break;
@@ -98,7 +98,7 @@ public class Order {
         return "Order{" +
                 ", numberOfProducts=" + numberOfProducts + '\n' +
                 ", totalPrice=" + totalPrice + '\n' +
-                ", userOrder=" + userOrder +
+                ", productUserOrder=" + productUserOrder +
                 '}';
     }
 }

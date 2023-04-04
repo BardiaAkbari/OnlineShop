@@ -1,19 +1,17 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.UUID;
+public class UserProduct {
 
-public class Product {
     // Attributes
     private String name;
     private int price;
     private int quantity;
     private String commentOfProduct;
+    private Seller seller;
 
 
 
     // Getter & Setter
-
 
     public String getName() {
         return name;
@@ -47,16 +45,26 @@ public class Product {
         this.commentOfProduct = commentOfProduct;
     }
 
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
+
 
     // To String
 
+
     @Override
     public String toString() {
-        return "Product{" +
+        return "UserProduct{" +
                 "name='" + name + '\'' +
                 ", price=" + price +
                 ", quantity=" + quantity +
                 ", commentOfProduct='" + commentOfProduct + '\'' +
+                ", seller=" + seller +
                 '}';
     }
 }
