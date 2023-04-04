@@ -21,13 +21,71 @@ public class Shop {
         allOfAccounts.add(account);
     }
 
-    public static void decreasingAmountOfProduct(Product product, int range){
-        int newQuantity = product.getQuantity() - range;
-        if(newQuantity == 0){
+    public static void RemovingOfProductIfTheyEnd(Product product){
+        if(product.getQuantity() == 0){
             allProducts.remove(product);
         }
-        else{
-            product.setQuantity(newQuantity);
-        }
     }
+
+    public static void addProductToAllProducts(Product product){
+        allProducts.add(product);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    // Getter & Setter
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getWebAddress() {
+        return webAddress;
+    }
+
+    public void setWebAddress(String webAddress) {
+        this.webAddress = webAddress;
+    }
+
+    public String getSupportPhoneNumber() {
+        return supportPhoneNumber;
+    }
+
+    public void setSupportPhoneNumber(String supportPhoneNumber) {
+        this.supportPhoneNumber = supportPhoneNumber;
+    }
+
+    public int getProfitCashFromAllOrders() {
+        return profitCashFromAllOrders;
+    }
+
+    public void setProfitCashFromAllOrders(int profitCashFromAllOrders) {
+        this.profitCashFromAllOrders = profitCashFromAllOrders;
+    }
+
+    public static Product getFromAllProducts(String name){
+        Product target = null;
+        for(Product product : allProducts){
+            if (product.getName().equals(name)){
+                target = product;
+                break;
+            }
+        }
+        return target;
+    }
+
+
 }

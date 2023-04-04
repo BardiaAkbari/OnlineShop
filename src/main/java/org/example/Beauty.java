@@ -22,13 +22,16 @@ public class Beauty extends Product{
         }
         return beauty;
     }
-    public static void decreasingAmountOfBeautyProduct(Beauty beauty ,int range){
-        int newQuantitiy = beauty.getQuantity() - range;
-        if(newQuantitiy == 0){
+    public static void removingOfBeautyProductIfTheyEnd(Beauty beauty){
+        if(beauty.getQuantity() == 0) {
             allOfBeautyProducts.remove(beauty);
         }
-        else{
-            beauty.setQuantity(newQuantitiy);
-        }
     }
+
+
+
+    public static void addToAllOfBeautyProducts(Beauty beauty){
+        allOfBeautyProducts.add(beauty);
+    }
+
 }

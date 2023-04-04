@@ -16,14 +16,17 @@ public class Order {
     }
 
     // Public Functions
-    public void increasingNumberOfProducts(){
-        this.numberOfProducts = this.numberOfProducts + 1;
+    public void increasingNumberOfProducts(int number){
+        this.numberOfProducts = this.numberOfProducts + number;
     }
     public void increasingTotoalPrice(int price){
         this.totalPrice = this.totalPrice + price;
     }
     public void addingToUserorder(Product product){
         this.userOrder.add(product);
+    }
+    public int numberOfUserOrder(){
+        return this.userOrder.size();
     }
 
 
@@ -61,6 +64,7 @@ public class Order {
     }
 
     public int getTotalPrice() {
+
         return totalPrice;
     }
 
@@ -68,25 +72,32 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public ArrayList<Product> getUserOrder() {
-        return userOrder;
-    }
-
     public void setUserOrder(ArrayList<Product> userOrder) {
         this.userOrder = userOrder;
     }
+
     public Product getFromUserOrder(int index){
         return this.userOrder.get(index);
+    }
+    public Product getFromUserOrder(String name){
+        Product target = null;
+        for(Product product : userOrder){
+            if(product.getName().equals(name)){
+                target = product;
+                break;
+            }
+        }
+        return target;
     }
 
     // To String
 
     @Override
     public String toString() {
+
         return "Order{" +
-                "user=" + user +
-                ", numberOfProducts=" + numberOfProducts +
-                ", totalPrice=" + totalPrice +
+                ", numberOfProducts=" + numberOfProducts + '\n' +
+                ", totalPrice=" + totalPrice + '\n' +
                 ", userOrder=" + userOrder +
                 '}';
     }

@@ -13,7 +13,7 @@ public class User extends Account {
     private int walletCash;
     private static ArrayList<User> allUsers = new ArrayList<>();
     private ArrayList<Order> orders = new ArrayList<>();
-    private ArrayList<Product> allPurchaseProducts = new ArrayList<>();
+    private ArrayList<Purchase> allPurchaseProducts = new ArrayList<>();
 
     // Constructor
     public User(String username, String password){
@@ -52,20 +52,20 @@ public class User extends Account {
         String combination = numbers + upper + lower + special;
         int len = combination.length();
         Random myRandom = new Random();
-        String passWord = "";
+        StringBuilder passWord = new StringBuilder();
         boolean flag = false;
         do{
             int myNum = myRandom.nextInt(12);
             if(myNum > 6){
                 Random genrator = new Random();
                 for(int i = 0; i < myNum; i++){
-                    passWord = passWord + combination.charAt(genrator.nextInt(combination.length()));
+                    passWord.append(combination.charAt(genrator.nextInt(combination.length())));
                 }
                 flag = true;
             }
         }
         while(!flag);
-        return passWord;
+        return passWord.toString();
     }
     public void decreasingWalletCash(int price){
         this.walletCash = this.walletCash - price;
@@ -73,16 +73,15 @@ public class User extends Account {
     public void addToOrders(Order order){
         this.orders.add(order);
     }
-    public void addToAllPurchaseProducts(Product product){
-        this.allPurchaseProducts.add(product);
-    }
     public int numberOfAllOrders(){
         return this.orders.size();
     }
     public int numberAllPurchaseProducts(){
         return this.allPurchaseProducts.size();
     }
-
+    public void addToAllPurchaseProducts(Purchase purchase){
+        this.allPurchaseProducts.add(purchase);
+    }
 
 
 
@@ -137,7 +136,7 @@ public class User extends Account {
     public Order getFromOrders(int index){
         return this.orders.get(index);
     }
-    public Product getFromAllPurchaseProducts(int index){
+    public Purchase getFromAllPurchaseProducts(int index){
         return this.allPurchaseProducts.get(index);
     }
     // To String
@@ -146,9 +145,6 @@ public class User extends Account {
         return "User{" +
                 "phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
-                ", walletCash=" + walletCash +
-                ", orders=" + orders +
-                ", allPurchaseProducts=" + allPurchaseProducts +
                 '}';
     }
 }

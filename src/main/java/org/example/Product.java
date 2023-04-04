@@ -9,12 +9,6 @@ public class Product {
     private int price;
     private int quantity;
     private String commentOfProduct;
-    private String id;
-
-    public Product(){
-        UUID uuid = UUID.randomUUID();
-        this.id = uuid.toString();
-    }
 
 
 
@@ -53,7 +47,16 @@ public class Product {
         this.commentOfProduct = commentOfProduct;
     }
 
-    public String getId() {
-        return id;
+
+    // To String
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", commentOfProduct='" + commentOfProduct + '\'' +
+                '}';
     }
 }
