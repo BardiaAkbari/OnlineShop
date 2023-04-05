@@ -346,6 +346,7 @@ public class Main {
             }
             else{
                 System.out.println("Name: " + Electronic.SearchForElectronicProduct(productName).getName() + "      " + " Quantity: "
+                        + Electronic.SearchForElectronicProduct(productName).getQuantity() + "      " + " Price: "
                         + Electronic.SearchForElectronicProduct(productName).getPrice() + "     " + " SellerProduct comment: "
                         + Electronic.SearchForElectronicProduct(productName).getCommentOfProduct());
                 System.out.println('\n' + "Do you want this product?(Yes/No)");
@@ -385,6 +386,7 @@ public class Main {
             }
             else{
                 System.out.println("Name: " + KitchenStuff.SearchForKitchenStuffProduct(productName).getName() + "      " + " Quantity: "
+                        + KitchenStuff.SearchForKitchenStuffProduct(productName).getQuantity() + "      " + " Price: "
                         + KitchenStuff.SearchForKitchenStuffProduct(productName).getPrice() + "     " + " SellerProduct comment: "
                         + KitchenStuff.SearchForKitchenStuffProduct(productName).getCommentOfProduct());
                 System.out.println('\n' + "Do you want this product?(Yes/No)");
@@ -424,6 +426,7 @@ public class Main {
             }
             else{
                 System.out.println("Name: " + SuperMarketStuff.SearchForSuperMarketStuffProduct(productName).getName() + "      " + " Quantity: "
+                        + SuperMarketStuff.SearchForSuperMarketStuffProduct(productName).getQuantity() + "      " + " Price: "
                         + SuperMarketStuff.SearchForSuperMarketStuffProduct(productName).getPrice() + "     " + " SellerProduct comment: "
                         + SuperMarketStuff.SearchForSuperMarketStuffProduct(productName).getCommentOfProduct());
                 System.out.println('\n' + "Do you want this product?(Yes/No)");
@@ -463,6 +466,7 @@ public class Main {
             }
             else{
                 System.out.println("Name: " + Vehicle.SearchForVehicleProduct(productName).getName() + "      " + " Quantity: "
+                        + Vehicle.SearchForVehicleProduct(productName).getQuantity() + "        " + " Price: "
                         + Vehicle.SearchForVehicleProduct(productName).getPrice() + "     " + " SellerProduct comment: "
                         + Vehicle.SearchForVehicleProduct(productName).getCommentOfProduct());
                 System.out.println('\n' + "Do you want this product?(Yes/No)");
@@ -502,6 +506,7 @@ public class Main {
             }
             else{
                 System.out.println("Name: " + OtherProducts.SearchForOtherProductsProduct(productName).getName() + "      " + " Quantity: "
+                        + OtherProducts.SearchForOtherProductsProduct(productName).getQuantity() + " Price: "
                         + OtherProducts.SearchForOtherProductsProduct(productName).getPrice() + "     " + " SellerProduct comment: "
                         + OtherProducts.SearchForOtherProductsProduct(productName).getCommentOfProduct());
                 System.out.println('\n' + "Do you want this product?(Yes/No)");
@@ -537,6 +542,7 @@ public class Main {
         }
         else{
             System.out.println("Name: " + Shop.SearchFromAllProducts(productName).getName() + "      " + " Quantity: "
+                    + Shop.SearchFromAllProducts(productName).getQuantity() + " Price: "
                     + Shop.SearchFromAllProducts(productName).getPrice() + "     " + " SellerProduct comment: "
                     + Shop.SearchFromAllProducts(productName).getCommentOfProduct());
             System.out.println('\n' + "Do you want this product?(Yes/No)");
@@ -590,6 +596,7 @@ public class Main {
                 break;
             case "B":
             case "b":
+                numberOfProductsWhenDeletes(order);
                 userMenu(user);
                 break;
             case "C":
@@ -605,7 +612,7 @@ public class Main {
                 seeTheShoppingCart(user, order, category);
                 break;
             default:
-                System.out.println("You type wrong ansewr." + '\n' + "Please enter keywords that we offers." + '\n' +
+                System.out.println("You type wrong answer." + '\n' + "Please enter keywords that we offers." + '\n' +
                         "We must show the category page :(");
                 selectingCategory(user, order);
                 break;
