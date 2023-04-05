@@ -14,22 +14,14 @@ public class Beauty extends SellerProduct {
     }
     public static SellerProduct SearchForBeautyProduct(String name){
         SellerProduct sellerProduct = null;
-        for(SellerProduct mybeauty : allOfBeautyProducts){
-            if(mybeauty.getName().equals(name)){
-                sellerProduct = mybeauty;
+        for(SellerProduct myBeauty : allOfBeautyProducts){
+            if(myBeauty.getName().equals(name)){
+                sellerProduct = myBeauty;
                 break;
             }
         }
         return sellerProduct;
     }
-    public static void changingTheAvailableBeautyProductStatusIfTheyEnd(Beauty beauty){
-        if(beauty.getQuantity() == 0) {
-            allOfBeautyProducts.remove(beauty);
-        }
-    }
-
-
-
     public static void addToAllOfBeautyProducts(SellerProduct sellerProduct){
         allOfBeautyProducts.add(sellerProduct);
     }

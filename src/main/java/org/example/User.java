@@ -1,15 +1,12 @@
 package org.example;
-
-import com.sun.org.apache.xpath.internal.operations.Or;
-
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 public class User extends Account {
     // Attributes
     private String phoneNumber;
     private String address;
+    private String email;
     private int walletCash;
     private static ArrayList<User> allUsers = new ArrayList<>();
     private ArrayList<Order> orders = new ArrayList<>();
@@ -33,18 +30,9 @@ public class User extends Account {
         }
         return target;
     }
-    public static boolean isUsernameExist(String username) {
-        boolean flag = false;
 
-        for (User user : allUsers) {
-            if (user.getUsername().equals(username)) {
-                flag = true;
-                break;
-            }
-        }
-        return flag;
-    }
     public static String passwordGenerator(){
+
         String numbers = "1234567890";
         String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lower = "abcdefghijklmnopqrstuvwxyz";
@@ -67,47 +55,26 @@ public class User extends Account {
         while(!flag);
         return passWord.toString();
     }
+
     public void decreasingWalletCash(int price){
         this.walletCash = this.walletCash - price;
     }
+
     public void addToOrders(Order order){
         this.orders.add(order);
     }
+
     public int numberOfAllOrders(){
         return this.orders.size();
     }
+
     public int numberAllPurchaseProducts(){
         return this.allPurchaseProducts.size();
     }
+
     public void addToAllPurchaseProducts(Purchase purchase){
         this.allPurchaseProducts.add(purchase);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // Getter & Setter
     public String getPhoneNumber () {
@@ -130,20 +97,28 @@ public class User extends Account {
         return walletCash;
     }
 
-    public void setWalletCash(int walletCash) {
-        this.walletCash = walletCash;
-    }
     public Order getFromOrders(int index){
         return this.orders.get(index);
     }
     public Purchase getFromAllPurchaseProducts(int index){
         return this.allPurchaseProducts.get(index);
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     // To String
     @Override
     public String toString() {
         return "User{" +
-                "phoneNumber='" + phoneNumber + '\'' +
+                "username='" + this.getUsername() + '\'' +
+                ", password='" + this.getPassword() + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
                 '}';
     }

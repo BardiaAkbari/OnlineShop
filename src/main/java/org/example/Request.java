@@ -11,19 +11,6 @@ public class Request {
         Admin.addingUserWalletRequest(this);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Getter & Setter
 
     public User getUser() {

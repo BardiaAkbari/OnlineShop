@@ -11,33 +11,6 @@ public abstract class Account {
         this.password = password;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Getter & Setter
     public String getUsername() {
         return username;
@@ -54,4 +27,5 @@ public abstract class Account {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

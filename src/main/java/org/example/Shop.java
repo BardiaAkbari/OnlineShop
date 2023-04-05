@@ -16,11 +16,22 @@ public class Shop {
 
     // Public Functions
 
+    public static SellerProduct SearchFromAllProducts(String name){
+        SellerProduct target = null;
+        for(SellerProduct sellerProduct : allProducts){
+            if(sellerProduct.getName().equals(name)){
+                target = sellerProduct;
+                break;
+            }
+        }
+        return target;
+    }
+
     public static void addAccount(Account account){
         allOfAccounts.add(account);
     }
 
-    public static void changingTheAvailableStatusOfAllProductIfTheyEnd(SellerProduct product){
+    public static void changingTheAvailableStatusFromAllProduct(SellerProduct product){
             product.setAvailable(!product.isAvailable());
     }
 
@@ -28,8 +39,30 @@ public class Shop {
         allProducts.add(product);
     }
 
-    public static void increasingPrfoitFromAllOrders(int price){
+    public static void increasingProfitFromAllOrders(int price){
         profitCashFromAllOrders = profitCashFromAllOrders + price;
+    }
+
+    public static boolean isUsernameExist(String username) {
+        boolean flag = false;
+        for (Account account : allOfAccounts) {
+            if (account.getUsername().equals(username)) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    public static Account searchInAllAccounts(String username){
+        Account target = null;
+        for(Account account : allOfAccounts){
+            if(account.getUsername().equals(username)){
+                target = account;
+                break;
+            }
+        }
+        return target;
     }
 
     // Getter & Setter

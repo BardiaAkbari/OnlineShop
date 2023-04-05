@@ -30,20 +30,12 @@ public class Seller extends Account {
         return target;
     }
 
-    public static boolean isUsernameExist(String username) {
-        boolean flag = false;
-
-        for (Seller seller : allSellers) {
-            if (seller.getUsername().equals(username)) {
-                flag = true;
-                break;
-            }
-        }
-        return flag;
-    }
-
     public void increasingProfitFromSelling(int price) {
         this.profitFromSelling = this.profitFromSelling + price;
+    }
+
+    public void addToAllSellerProducts(SellerProduct sellerProduct){
+        this.allSellerProducts.add(sellerProduct);
     }
 
     // Getter & Setter
@@ -66,5 +58,16 @@ public class Seller extends Account {
             }
         }
         return target;
+    }
+
+    // To String
+    @Override
+    public String toString() {
+        return "Seller{" +
+                "username='" + this.getUsername() + '\'' +
+                ", password='" + this.getPassword() + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", profitFromSelling=" + profitFromSelling +
+                '}';
     }
 }
