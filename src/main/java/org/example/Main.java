@@ -42,7 +42,7 @@ public class Main {
         String answer = myScanner.nextLine();
         if(answer.equals("yes") || answer.equals("Yes")){
             password = User.passwordGenerator();
-            System.out.println("Your password is : " + password + " ." + '\n' + "Please save it");
+            System.out.println("Your password is : " + password + " ." + '\n' + "Please save it.");
         }
         else {
             System.out.println("Please enter your password: ");
@@ -52,9 +52,8 @@ public class Main {
     }
 
     public static void logout(){
-
         Scanner logScanner = new Scanner(System.in);
-        System.out.println("Do you want to exit onlineshop too?(yes / no)");
+        System.out.println("Do you want to exit online shop too?(Yes/No)");
         String ansewr = logScanner.nextLine();
         if(ansewr.equals("yes") || ansewr.equals("Yes")){
             System.out.println("You make us happy to visit our onlineshop.");
@@ -126,7 +125,7 @@ public class Main {
     public static void userMenu(User user){
         System.out.println("Now you are in main Menu." + '\n' + "please select your operation :D" + '\n');
         System.out.println("1-Make Order" + '\n' + "2-Purchases" + '\n' + "3-My Last Orders" + '\n' + "4-Log out" + '\n' +
-                "5-Request for increasing wallet price" + '\n');
+                "5-Request for increasing wallet price" + '\n' + "6-See my wallet cash" + '\n');
         Scanner myScanner = new Scanner(System.in);
         int number = Integer.parseInt(myScanner.nextLine());
         switch (number){
@@ -145,6 +144,9 @@ public class Main {
                 break;
             case 5:
                 increasingWalletPriceRequestForUser(user);
+                break;
+            case 6:
+                seeWalletCash(user);
                 break;
             default:
                 System.out.println("Please enter right answer." + '\n');
@@ -774,6 +776,13 @@ public class Main {
         Scanner myScanner = new Scanner(System.in);
         int price = myScanner.nextInt();
         newRequest.requestOfIncreasingPriceOfWalletForUser(user, price);
+        System.out.println("Your request is sent to admins." + '\n' + "You can see your wallet cash to see it is increasing or not.");
+        userMenu(user);
+    }
+
+    public static void seeWalletCash(User user){
+        System.out.println("You have " + user.getWalletCash() + "$ in you shop account");
+        userMenu(user);
     }
 
     // Menu For Seller
@@ -989,7 +998,7 @@ public class Main {
     // Menu For Admin
 
     public static void loginOperationForAdmin() {
-        System.out.println("This login operation page please do things that we want. :D");
+        System.out.println("This is login operation page." + '\n' + "please do things that we want. :D");
         Scanner myScanner = new Scanner(System.in);
         System.out.println("Please enter your username: ");
         String username = myScanner.nextLine();
@@ -1032,30 +1041,40 @@ public class Main {
         Scanner readingScanner = new Scanner(System.in);
         int round = 0;
         boolean flag = true;
-        while(flag && round < Admin.numberOfRequests() ){
-            System.out.println("The user " + Admin.accesssToRequest(round).getUser().getUsername() + "have an request for " +
-                    Admin.accesssToRequest(round).getPrice() + '.' + '\n' + "Do you want to accept it? (Yes/No/Skip): ");
+        int number = Admin.numberOfRequests();
+        int delete = 0;
+        while(flag && round < number){
+            System.out.println("The user " + Admin.accesssToRequest(round).getUser().getUsername() + " have an request for " +
+                    Admin.accesssToRequest(round).getPrice() + '.' + '\n' + "Do you want to accept it?(Yes/No/Skip): ");
             String answer = readingScanner.nextLine();
             if(answer.equals("yes") || answer.equals("Yes")){
-                Admin.removingUserRequest(Admin.accesssToRequest(round));
+                Request target = Admin.accesssToRequest(round - delete);
+                target.getUser().setWalletCash(target.getUser().getWalletCash() + target.getPrice());
+                Admin.removingUserRequest(target);
+                delete++;
                 System.out.println("The request have accepted.");
             }
             else if (answer.equals("No") || answer.equals("no")) {
-                Admin.removingUserRequest(Admin.accesssToRequest(round));
-                System.out.println("The request have not accpeted.");
+                Admin.removingUserRequest(Admin.accesssToRequest(round - delete));
+                delete++;
+                System.out.println("The request have not accepted.");
             }
             else
                 System.out.println("The request have skipped.");
-            System.out.println('\n' + "Do you want to see other requests?! (yes/no)");
+
+            System.out.println('\n' + "Do you want to see other requests?!(Yes/No)");
             String resume = readingScanner.nextLine();
-            if(resume.equals("no") || resume.equals("No")){
+            if(resume.equals("Yes") || resume.equals("yes")){
+                if(round == number - 1){
+                    System.out.println("You read all requests.");
+                    adminMenu(admin);
+                }
+            }
+            else{
                 flag = false;
                 adminMenu(admin);
             }
-            if(round == Admin.numberOfRequests() - 1){
-                System.out.println("You read all requests.");
-                adminMenu(admin);
-            }
+            round++;
         }
     }
 

@@ -97,9 +97,14 @@ public class User extends Account {
         return walletCash;
     }
 
+    public void setWalletCash(int walletCash) {
+        this.walletCash = walletCash;
+    }
+
     public Order getFromOrders(int index){
         return this.orders.get(index);
     }
+
     public Purchase getFromAllPurchaseProducts(int index){
         return this.allPurchaseProducts.get(index);
     }
