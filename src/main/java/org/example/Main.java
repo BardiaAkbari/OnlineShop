@@ -73,7 +73,7 @@ public class Main {
 
     public static void userStartMenu(){
         Scanner myScanner = new Scanner(System.in);
-        System.out.println("Hi there" + '\n' + "Do you have an account?: (yes / no)");
+        System.out.println("Hi there" + '\n' + "Do you have an account?(Yes/No)");
         String answer = myScanner.nextLine();
         if(answer.equals("yes") || answer.equals("Yes"))
             loginOperationForUser();
@@ -789,11 +789,11 @@ public class Main {
 
     public static void sellerStartMenu(){
         Scanner myScanner = new Scanner(System.in);
-        System.out.println("Hi there" + '\n' + "Do you have an account?: (yes / no)");
-        String ansewr = myScanner.nextLine();
-        if(ansewr.equals("yes") || ansewr.equals("Yes"))
+        System.out.println("Hi there" + '\n' + "Do you have an account?(Yes/No): ");
+        String answer = myScanner.nextLine();
+        if(answer.equals("yes") || answer.equals("Yes"))
             loginOperationForSeller();
-        else if (ansewr.equals("No") || ansewr.equals("no"))
+        else if (answer.equals("No") || answer.equals("no"))
             signupOperationForSeller();
         else{
             System.out.println("Please give the right answer." + '\n');
@@ -826,7 +826,7 @@ public class Main {
         }
         else{
             String password = passwordGeneratorAsking(myScanner);
-            System.out.println("Now please enter your company name : ");
+            System.out.println("Now please enter your company name: ");
             String companyName = myScanner.nextLine();
             Seller newSeller = new Seller(username, password, companyName);
             Shop.addAccount(newSeller);
