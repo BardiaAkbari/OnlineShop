@@ -1,6 +1,7 @@
 package org.example;
-
+import org.jetbrains.annotations.NotNull;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -14,6 +15,18 @@ public class Main {
         Admin masterAdmin = new Admin("Bardi_ya", "iambardia");
         masterAdmin.setEmail("Bardiaa830@gmail.com");
         Shop.addAccount(masterAdmin);
+//        User user = new User("bardia", "akbari");
+//        Seller seller = new Seller("nariman", "akbari", "diba");
+//        Shop.addAccount(user);
+//        Shop.addAccount(seller);
+//        SellerProduct sellerProduct = new SellerProduct();
+//        user.setWalletCash(1000);
+//        sellerProduct.setSeller(seller);
+//        sellerProduct.setPrice(200);
+//        sellerProduct.setName("kerem");
+//        sellerProduct.setQuantity(20);
+//        Shop.addProductToAllProducts(sellerProduct);
+
         runMenuForAll();
     }
 
@@ -38,7 +51,7 @@ public class Main {
 
     private static String passwordGeneratorAsking(Scanner myScanner) {
         String password;
-        System.out.println("well done, Do you want to generate password for you?(yes / no): ");
+        System.out.println("well done, Do you want to generate password for you?(Yes/No): ");
         String answer = myScanner.nextLine();
         if(answer.equals("yes") || answer.equals("Yes")){
             password = User.passwordGenerator();
@@ -53,18 +66,18 @@ public class Main {
 
     public static void logout(){
         Scanner logScanner = new Scanner(System.in);
-        System.out.println("Do you want to exit online shop too?(Yes/No)");
-        String ansewr = logScanner.nextLine();
-        if(ansewr.equals("yes") || ansewr.equals("Yes")){
-            System.out.println("You make us happy to visit our onlineshop.");
+        System.out.println("Do you want to exit online shop too?(Yes/No): ");
+        String answer = logScanner.nextLine();
+        if(answer.equals("yes") || answer.equals("Yes")){
+            System.out.println("You make us happy to visit our online shop.");
             System.exit(1);
         }
-        else if (ansewr.equals("no") || ansewr.equals("No")){
-            System.out.println("You loged out");
+        else if (answer.equals("no") || answer.equals("No")){
+            System.out.println("You logged out.");
             runMenuForAll();
         }
         else{
-            System.out.println("Please ansewr in right way.");
+            System.out.println("Please answer in right way.");
             logout();
         }
     }
@@ -73,7 +86,7 @@ public class Main {
 
     public static void userStartMenu(){
         Scanner myScanner = new Scanner(System.in);
-        System.out.println("Hi there" + '\n' + "Do you have an account?(Yes/No)");
+        System.out.println("Hi there" + '\n' + "Do you have an account?(Yes/No): ");
         String answer = myScanner.nextLine();
         if(answer.equals("yes") || answer.equals("Yes"))
             loginOperationForUser();
@@ -125,7 +138,8 @@ public class Main {
     public static void userMenu(User user){
         System.out.println("Now you are in main Menu." + '\n' + "please select your operation :D" + '\n');
         System.out.println("1-Make Order" + '\n' + "2-Purchases" + '\n' + "3-My Last Orders" + '\n' + "4-Log out" + '\n' +
-                "5-Request for increasing wallet price" + '\n' + "6-See my wallet cash" + '\n');
+                "5-Request for increasing wallet price" + '\n' + "6-See my wallet cash" + '\n' +
+                "7-See shop support phone number" + '\n');
         Scanner myScanner = new Scanner(System.in);
         int number = Integer.parseInt(myScanner.nextLine());
         switch (number){
@@ -148,6 +162,8 @@ public class Main {
             case 6:
                 seeWalletCash(user);
                 break;
+            case 7:
+                seePhoneNumber(user);
             default:
                 System.out.println("Please enter right answer." + '\n');
                 userMenu(user);
@@ -544,10 +560,10 @@ public class Main {
         }
         else{
             System.out.println("Name: " + Shop.SearchFromAllProducts(productName).getName() + "      " + " Quantity: "
-                    + Shop.SearchFromAllProducts(productName).getQuantity() + " Price: "
+                    + Shop.SearchFromAllProducts(productName).getQuantity() + "      " + " Price: "
                     + Shop.SearchFromAllProducts(productName).getPrice() + "     " + " SellerProduct comment: "
                     + Shop.SearchFromAllProducts(productName).getCommentOfProduct());
-            System.out.println('\n' + "Do you want this product?(Yes/No)");
+            System.out.println('\n' + "Do you want this product?(Yes/No): ");
             String userDecide = myScanner.nextLine();
             if(userDecide.equals("yes") || userDecide.equals("Yes")){
                 SellerProduct userDecideProduct = Shop.SearchFromAllProducts(productName);
@@ -573,6 +589,7 @@ public class Main {
             userProduct.setQuantity(range);
             userProduct.setPrice(userDecideProduct.getPrice());
             userProduct.setCommentOfProduct(userDecideProduct.getCommentOfProduct());
+            userProduct.setSeller(userDecideProduct.getSeller());
             order.addToProductUserOrders(userProduct);
             order.increasingNumberOfProducts(range);
             order.increasingTotalPrice(userProduct.getPrice() * range);
@@ -591,7 +608,6 @@ public class Main {
                 "F)See my cart for update it");
         String respond = myScanner.nextLine();
         switch (respond) {
-
             case "A":
             case "a":
                 passingCategoryTOCorrespondingFunction(user, category, order);
@@ -621,7 +637,7 @@ public class Main {
         }
     }
 
-    public static void finishingTheOrder(User user, Order order){
+    public static void finishingTheOrder(@NotNull User user, Order order){
         if(user.getWalletCash() >= order.getTotalPrice()){
             System.out.println("your order has accepted!");
             user.decreasingWalletCash(user.getWalletCash() - order.getTotalPrice());
@@ -630,6 +646,7 @@ public class Main {
             Purchase newPurchase = new Purchase(user ,date, order, order.getTotalPrice());
             user.addToAllPurchaseProducts(newPurchase);
             addProfits(order);
+            userMenu(user);
         }
         else{
             System.out.println("Your wallet cash is not enough this stuff." + '\n' +
@@ -663,10 +680,10 @@ public class Main {
 
     public static void seeTheShoppingCart(User user, Order order, int category) {
         Scanner myScanner = new Scanner(System.in);
-        for (int i = 0; i < order.numberOfProductUserOrder(); i++) {
+        for (int i = 0; i < Objects.requireNonNull(order).numberOfProductUserOrder(); i++) {
             System.out.println(order.getFromUserOrder(i));
         }
-        System.out.println("Do you want to change anything?!");
+        System.out.println("Do you want to change anything?!(Yes/No)");
         String answer = myScanner.nextLine();
         if (answer.equals("Yes") || answer.equals("yes")) {
             System.out.println("Please enter the name of product that you want the change.(it must be in product we show you!): ");
@@ -762,12 +779,14 @@ public class Main {
         for(int i = 0; i < user.numberOfAllOrders(); i++){
             System.out.println(user.getFromOrders(i));
         }
+        userMenu(user);
     }
 
     public static void seePurchases(User user){
         for(int  i = 0; i < user.numberAllPurchaseProducts(); i++){
             System.out.println(user.getFromAllPurchaseProducts(i));
         }
+        userMenu(user);
     }
 
     public static void increasingWalletPriceRequestForUser(User user){
@@ -782,6 +801,11 @@ public class Main {
 
     public static void seeWalletCash(User user){
         System.out.println("You have " + user.getWalletCash() + "$ in you shop account");
+        userMenu(user);
+    }
+
+    public static void seePhoneNumber(User user){
+        System.out.println("The shop support phone number is: " + Shop.getSupportPhoneNumber());
         userMenu(user);
     }
 
@@ -1014,7 +1038,7 @@ public class Main {
     public static void adminMenu(Admin admin) {
         System.out.println("Now you are in main Menu." + '\n' + "please select your operation :D" + '\n');
         System.out.println("1-Read wallet requests" + '\n' + "2-Add another admin" + '\n' + "3-See an account" + '\n'
-                + "4-Log out" + '\n');
+                + "4-Log out" + '\n' + "5-See shop profit");
         Scanner myScanner = new Scanner(System.in);
         int number = Integer.parseInt(myScanner.nextLine());
         switch (number){
@@ -1030,6 +1054,8 @@ public class Main {
             case 4:
                 logout();
                 break;
+            case 5:
+                seeShopProfit(admin);
             default:
                 System.out.println("Please enter right answer." + '\n');
                 adminMenu(admin);
@@ -1044,8 +1070,8 @@ public class Main {
         int number = Admin.numberOfRequests();
         int delete = 0;
         while(flag && round < number){
-            System.out.println("The user " + Admin.accesssToRequest(round).getUser().getUsername() + " have an request for " +
-                    Admin.accesssToRequest(round).getPrice() + '.' + '\n' + "Do you want to accept it?(Yes/No/Skip): ");
+            System.out.println("The user " + Admin.accesssToRequest(round - delete).getUser().getUsername() + " have an request for " +
+                    Admin.accesssToRequest(round - delete).getPrice() + '.' + '\n' + "Do you want to accept it?(Yes/No/Skip): ");
             String answer = readingScanner.nextLine();
             if(answer.equals("yes") || answer.equals("Yes")){
                 Request target = Admin.accesssToRequest(round - delete);
@@ -1062,7 +1088,7 @@ public class Main {
             else
                 System.out.println("The request have skipped.");
 
-            System.out.println('\n' + "Do you want to see other requests?!(Yes/No)");
+            System.out.println('\n' + "Do you want to see other requests?!(Yes/No): ");
             String resume = readingScanner.nextLine();
             if(resume.equals("Yes") || resume.equals("yes")){
                 if(round == number - 1){
@@ -1095,6 +1121,7 @@ public class Main {
                 newAdmin.setEmail(myScanner.nextLine());
                 Shop.addAccount(newAdmin);
                 System.out.println("Your admin has added." + '\n');
+                adminMenu(admin);
             }
         }
         else{
@@ -1130,7 +1157,7 @@ public class Main {
         else{
             Scanner myScanner = new Scanner(System.in);
             System.out.println(account);
-            System.out.println("Do you want to see another account?!(Yes/No)");
+            System.out.println("Do you want to see another account?!(Yes/No): ");
             String answer = myScanner.nextLine();
             if(answer.equals("Yes") || answer.equals("yes")){
                 seeAnAccountInformation(admin);
@@ -1140,5 +1167,13 @@ public class Main {
                 adminMenu(admin);
             }
         }
+    }
+
+    public static void seeShopProfit(Admin admin){
+        if(admin.isMasterAdmin(admin))
+            System.out.println("This shop have " + Shop.getProfitCashFromAllOrders() +"$ from selling." );
+        else
+            System.out.println("Only master admin can see the profits.");
+        adminMenu(admin);
     }
 }

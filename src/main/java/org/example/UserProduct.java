@@ -64,7 +64,7 @@ public class UserProduct {
                 ", price=" + price +
                 ", quantity=" + quantity +
                 ", commentOfProduct='" + commentOfProduct + '\'' +
-                ", seller=" + seller +
+                ", seller company=" + this.seller.getCompanyName() +
                 '}';
     }
 }

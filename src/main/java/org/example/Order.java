@@ -16,8 +16,8 @@ public class Order {
     }
 
     // Public Functions
-    public void increasingNumberOfProducts(int number){
-        this.numberOfProducts = this.numberOfProducts + number;
+    public void increasingNumberOfProducts(int range){
+        this.numberOfProducts = this.numberOfProducts + range;
     }
     public void increasingTotalPrice(int price){
         this.totalPrice = this.totalPrice + price;
@@ -96,7 +96,7 @@ public class Order {
     public String toString() {
 
         return "Order{" +
-                ", numberOfProducts=" + numberOfProducts + '\n' +
+                "numberOfProducts=" + numberOfProducts + '\n' +
                 ", totalPrice=" + totalPrice + '\n' +
                 ", productUserOrder=" + productUserOrder +
                 '}';

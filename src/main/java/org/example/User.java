@@ -57,7 +57,7 @@ public class User extends Account {
     }
 
     public void decreasingWalletCash(int price){
-        this.walletCash = this.walletCash - price;
+        this.walletCash = price;
     }
 
     public void addToOrders(Order order){

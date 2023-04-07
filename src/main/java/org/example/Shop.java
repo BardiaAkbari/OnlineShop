@@ -6,13 +6,12 @@ public class Shop {
 
     // Attributes
 
-    private String name;
-    private String webAddress;
-    private String supportPhoneNumber;
+    private String name = "Digikala";
+    private String webAddress = "Digikala.com" ;
+    private static String supportPhoneNumber = "+98 9380212919";
     private static int profitCashFromAllOrders;
     private static ArrayList<Account> allOfAccounts = new ArrayList<>();
     private static ArrayList<SellerProduct> allProducts = new ArrayList<>();
-    private static ArrayList<Order> allAcceptedOrders = new ArrayList<>();
 
     // Public Functions
 
@@ -67,28 +66,9 @@ public class Shop {
 
     // Getter & Setter
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getWebAddress() {
-        return webAddress;
-    }
-
-    public void setWebAddress(String webAddress) {
-        this.webAddress = webAddress;
-    }
-
-    public String getSupportPhoneNumber() {
+    public static  String getSupportPhoneNumber() {
         return supportPhoneNumber;
-    }
-
-    public void setSupportPhoneNumber(String supportPhoneNumber) {
-        this.supportPhoneNumber = supportPhoneNumber;
     }
 
     public static SellerProduct getFromAllProducts(String name){
@@ -102,5 +82,7 @@ public class Shop {
         return target;
     }
 
-
+    public static int getProfitCashFromAllOrders() {
+        return profitCashFromAllOrders;
+    }
 }

@@ -48,9 +48,9 @@ public class Purchase {
     @Override
     public String toString() {
         return "Purchase{" +
-                "date=" + date +
-                ", order=" + order +
-                ", totalPrice=" + totalPrice +
+                "date=" + date + '\n' +
+                ", order=" + order + '\n' +
+                ", totalPrice=" + totalPrice + '\n' +
                 '}';
     }
 }
